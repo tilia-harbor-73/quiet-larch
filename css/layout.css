@@ -1,0 +1,218 @@
+/* ==========================================================================
+   css/layout.css — каркас: бічне меню, верхня панель, сторінка;
+   на телефоні — меню внизу, кнопка «+» і шторка «Ще» (ТЗ 2.1, 2.4, 2.10).
+   Оновлено: 29.10.2026 · Етап 1, крок 1
+   ========================================================================== */
+
+.app {
+  display: grid;
+  grid-template-columns: var(--sidebar-w) minmax(0, 1fr);
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+/* ---------- Бічне меню ---------- */
+.sidebar {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-side);
+  border-right: 1px solid var(--line);
+  padding: 18px 14px 14px;
+  overflow-y: auto;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 10px 18px;
+  color: var(--text);
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+.brand:hover { text-decoration: none; }
+.brand .logo-mark { color: var(--text); }
+.brand-mobile { display: none; }
+
+.nav { display: flex; flex-direction: column; gap: 18px; flex: 1; }
+.nav-group { display: flex; flex-direction: column; gap: 2px; }
+.nav-group-label {
+  padding: 0 12px 6px;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--text-3);
+}
+
+.nav-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  height: 38px;
+  padding: 0 12px;
+  border-radius: var(--r);
+  color: var(--text-2);
+  font-size: 14.5px;
+  transition: background .15s var(--ease), color .15s var(--ease);
+}
+.nav-item:hover { background: var(--surface-2); color: var(--text); text-decoration: none; }
+.nav-item .icon { color: var(--text-3); }
+.nav-label { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.nav-count { font-family: var(--font-mono); font-size: 12px; color: var(--text-3); }
+.nav-stage {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  color: var(--text-3);
+  white-space: nowrap;
+}
+.nav-item.is-later .nav-label,
+.nav-item.is-later .icon { opacity: .55; }
+
+.nav-item.is-active {
+  background: color-mix(in srgb, var(--accent) 12%, var(--bg-side));
+  color: var(--text);
+  font-weight: 500;
+}
+.nav-item.is-active .icon { color: var(--accent-text); opacity: 1; }
+.nav-item.is-active .nav-label { opacity: 1; }
+.sidebar .nav-item.is-active::before {
+  content: '';
+  position: absolute;
+  left: -14px;
+  top: 7px;
+  bottom: 7px;
+  width: 3px;
+  border-radius: 0 3px 3px 0;
+  background: var(--accent);
+}
+
+/* Профіль унизу меню */
+.profile {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  margin-top: 16px;
+  padding: 14px 10px 4px;
+  border-top: 1px solid var(--line);
+  text-align: left;
+  border-radius: 0;
+}
+.profile:hover .profile-name { color: var(--accent-text); }
+.profile-text { display: flex; flex-direction: column; min-width: 0; }
+.profile-name { font-weight: 600; font-size: 14.5px; }
+.profile-sub { font-size: 12.5px; color: var(--text-3); }
+
+/* ---------- Основна частина ---------- */
+.main { display: flex; flex-direction: column; min-width: 0; }
+
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  height: var(--topbar-h);
+  padding: 0 36px;
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--line);
+}
+.topbar-left { display: flex; align-items: center; gap: 12px; min-width: 0; }
+.topbar-date { display: flex; align-items: baseline; gap: 12px; white-space: nowrap; min-width: 0; }
+.topbar-day { font-size: 15px; font-weight: 600; }
+.topbar-week { font-size: 14px; color: var(--text-3); }
+.topbar-right { display: flex; align-items: center; gap: 10px; }
+
+.page {
+  flex: 1;
+  width: 100%;
+  max-width: calc(var(--page-max) + 72px);
+  padding: 36px 36px 64px;
+}
+.page:focus-visible { box-shadow: none; }
+
+/* Телефонні елементи на комп’ютері сховані */
+.tabbar, .fab, .topbar-right .only-mobile { display: none; }
+
+/* ---------- Вужчий комп’ютер ---------- */
+@media (max-width: 1180px) {
+  .search-placeholder { display: none; }
+  .search-field { width: auto; }
+}
+
+/* ---------- Телефон і вузький екран (ТЗ 2.10) ---------- */
+@media (max-width: 899px) {
+  .app { display: block; padding-bottom: calc(var(--tabbar-h) + env(safe-area-inset-bottom)); }
+  .sidebar { display: none; }
+
+  .topbar {
+    height: calc(56px + env(safe-area-inset-top));
+    padding: env(safe-area-inset-top) 12px 0 16px;
+  }
+  .brand-mobile { display: flex; padding: 0; font-size: 17px; gap: 9px; }
+  .topbar-date { display: none; }
+  .topbar-right { gap: 2px; }
+  .topbar-right .search-field,
+  .topbar-right .theme-pill,
+  .topbar-right .btn-new-order { display: none; }
+  .topbar-right .only-mobile { display: inline-grid; }
+  .topbar .icon-btn { border-color: transparent; background: none; }
+
+  .page { padding: 20px 16px 96px; }
+
+  .tabbar {
+    position: fixed;
+    left: 0; right: 0; bottom: 0;
+    z-index: 30;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    height: calc(var(--tabbar-h) + env(safe-area-inset-bottom));
+    padding-bottom: env(safe-area-inset-bottom);
+    background: color-mix(in srgb, var(--bg-side) 94%, transparent);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    border-top: 1px solid var(--line);
+  }
+  .tab {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    font-size: 11px;
+    color: var(--text-3);
+    min-width: 0;
+  }
+  .tab .icon { width: 22px; height: 22px; }
+  .tab:hover { text-decoration: none; }
+  .tab.is-later .icon, .tab.is-later span { opacity: .6; }
+  .tab.is-active { color: var(--accent-text); }
+  .tab.is-active .icon, .tab.is-active span { opacity: 1; }
+
+  .fab {
+    position: fixed;
+    right: 16px;
+    bottom: calc(var(--tabbar-h) + env(safe-area-inset-bottom) + 16px);
+    z-index: 31;
+    display: grid;
+    place-items: center;
+    width: 58px;
+    height: 58px;
+    border-radius: 18px;
+    background: var(--accent);
+    color: var(--on-color);
+    box-shadow: 0 10px 24px rgba(0, 0, 0, .35);
+  }
+  .fab:active { transform: scale(.96); }
+}

@@ -1,0 +1,221 @@
+/* ==========================================================================
+   css/base.css — кольори обох тем, палітра з 10 кольорів, кольори «горить»,
+   шрифти IBM Plex, базові стилі.
+   Основа — макет «Темний 2.0» (ТЗ 2.1): темний теплий фон з ледь помітною
+   фактурою. Світла тема — світла версія того самого макета (ТЗ 2.2).
+   Кожен колір перевірено на контраст: текст ≥ 4.5 : 1 до фону.
+   Оновлено: 29.10.2026 · Етап 1, крок 1
+   ========================================================================== */
+
+:root {
+  --font: 'IBM Plex Sans', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, 'SFMono-Regular', Consolas, monospace;
+  --font-serif: 'IBM Plex Serif', Georgia, 'Times New Roman', serif;
+
+  --r-xs: 4px;
+  --r-sm: 6px;
+  --r: 8px;
+  --r-lg: 12px;
+  --r-xl: 16px;
+  --r-full: 999px;
+
+  --sidebar-w: 236px;
+  --topbar-h: 68px;
+  --tabbar-h: 64px;
+  --page-max: 1240px;
+  --ease: cubic-bezier(.2, .8, .2, 1);
+
+  --on-color: #1b1710;   /* текст на кольоровому тлі (кнопка, кружечок з ініціалом) */
+}
+
+/* ---------- Темна тема (за замовчуванням, ТЗ 2.2) ---------- */
+:root,
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  --bg: #191814;
+  --bg-side: #15130f;
+  --surface: #1f1d16;
+  --surface-2: #25221b;
+  --surface-3: #2e2a21;
+  --line: #2a2720;
+  --line-strong: #3a352b;
+
+  --text: #efe9dc;
+  --text-2: #a69d8c;
+  --text-3: #918978;
+
+  /* Палітра з 10 кольорів (ТЗ 2.3): заливка = текст на фоні темної теми */
+  --pal-blue: #4f86e8;
+  --pal-indigo: #797de9;
+  --pal-violet: #9e70e1;
+  --pal-pink: #d56094;
+  --pal-red: #e25c55;
+  --pal-terracotta: #cf7350;
+  --pal-amber: #f1b24a;
+  --pal-green: #6fae5c;
+  --pal-teal: #4fb3a6;
+  --pal-slate: #7d8ea3;
+
+  /* Колір «горить» і «терміново» (ТЗ 2.8) */
+  --hot-coral: #f07c5d;
+  --hot-red: #e7555a;
+  --hot-crimson: #db5c8f;
+  --hot-orange: #ee8a2f;
+
+  --overlay: rgba(6, 5, 3, .62);
+  --shadow-pop: 0 18px 40px rgba(0, 0, 0, .5), 0 0 0 1px var(--line-strong);
+  --texture-opacity: .05;
+}
+
+/* ---------- Світла тема ---------- */
+:root[data-theme="light"] {
+  color-scheme: light;
+
+  --bg: #f6f3ec;
+  --bg-side: #efeae0;
+  --surface: #fffdf8;
+  --surface-2: #f2eee5;
+  --surface-3: #e8e2d5;
+  --line: #e3dccd;
+  --line-strong: #d2c9b7;
+
+  --text: #221e17;
+  --text-2: #5f574a;
+  --text-3: #6f6758;
+
+  /* Заливки — темніші, щоб кнопки й смужки було видно на світлому */
+  --pal-blue: #4f86e8;
+  --pal-indigo: #7376e7;
+  --pal-violet: #9a6ae0;
+  --pal-pink: #d2568d;
+  --pal-red: #e0524a;
+  --pal-terracotta: #cf7350;
+  --pal-amber: #ca8410;
+  --pal-green: #63a150;
+  --pal-teal: #459f93;
+  --pal-slate: #7d8ea3;
+  /* Ті самі кольори для тексту на світлому фоні */
+  --pal-blue-t: #1d64e1;
+  --pal-indigo-t: #5459e2;
+  --pal-violet-t: #8348d9;
+  --pal-pink-t: #c23372;
+  --pal-red-t: #ca2c23;
+  --pal-terracotta-t: #a9502e;
+  --pal-amber-t: #925f0b;
+  --pal-green-t: #49783c;
+  --pal-teal-t: #32746c;
+  --pal-slate-t: #5c6d82;
+
+  --hot-coral: #ee6946;
+  --hot-red: #e54a4f;
+  --hot-crimson: #d95288;
+  --hot-orange: #e27512;
+  --hot-coral-t: #c53812;
+  --hot-red-t: #d21e24;
+  --hot-crimson-t: #c62c6a;
+  --hot-orange-t: #a4550d;
+
+  --overlay: rgba(40, 32, 20, .32);
+  --shadow-pop: 0 16px 36px rgba(60, 45, 20, .16), 0 0 0 1px var(--line-strong);
+  --texture-opacity: .035;
+}
+
+/* ---------- Колір інтерфейсу (ТЗ 2.3): кнопки, активне меню, смужки ---------- */
+[data-accent="blue"]       { --accent: var(--pal-blue);       --accent-text: var(--pal-blue-t, var(--pal-blue)); }
+[data-accent="indigo"]     { --accent: var(--pal-indigo);     --accent-text: var(--pal-indigo-t, var(--pal-indigo)); }
+[data-accent="violet"]     { --accent: var(--pal-violet);     --accent-text: var(--pal-violet-t, var(--pal-violet)); }
+[data-accent="pink"]       { --accent: var(--pal-pink);       --accent-text: var(--pal-pink-t, var(--pal-pink)); }
+[data-accent="red"]        { --accent: var(--pal-red);        --accent-text: var(--pal-red-t, var(--pal-red)); }
+[data-accent="terracotta"] { --accent: var(--pal-terracotta); --accent-text: var(--pal-terracotta-t, var(--pal-terracotta)); }
+[data-accent="amber"]      { --accent: var(--pal-amber);      --accent-text: var(--pal-amber-t, var(--pal-amber)); }
+[data-accent="green"]      { --accent: var(--pal-green);      --accent-text: var(--pal-green-t, var(--pal-green)); }
+[data-accent="teal"]       { --accent: var(--pal-teal);       --accent-text: var(--pal-teal-t, var(--pal-teal)); }
+[data-accent="slate"]      { --accent: var(--pal-slate);      --accent-text: var(--pal-slate-t, var(--pal-slate)); }
+
+/* ---------- Колір «горить» (ТЗ 2.8): у кожного свій ---------- */
+[data-hot="coral"]   { --hot: var(--hot-coral);   --hot-text: var(--hot-coral-t, var(--hot-coral)); }
+[data-hot="red"]     { --hot: var(--hot-red);     --hot-text: var(--hot-red-t, var(--hot-red)); }
+[data-hot="crimson"] { --hot: var(--hot-crimson); --hot-text: var(--hot-crimson-t, var(--hot-crimson)); }
+[data-hot="orange"]  { --hot: var(--hot-orange);  --hot-text: var(--hot-orange-t, var(--hot-orange)); }
+
+:root {
+  --accent-soft: color-mix(in srgb, var(--accent) 13%, transparent);
+  --accent-line: color-mix(in srgb, var(--accent) 45%, transparent);
+  --hot-soft: color-mix(in srgb, var(--hot) 15%, transparent);
+  --focus-ring: 0 0 0 2px var(--bg), 0 0 0 4px color-mix(in srgb, var(--accent) 75%, transparent);
+  /* Кольори Марка й Назіка (ТЗ 2.7) — ставить js/look.js */
+  --c-marko: var(--pal-amber);
+  --c-nazik: var(--pal-teal);
+}
+
+/* ---------- Скидання й типографіка ---------- */
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; background: var(--bg); }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  min-height: 100dvh;
+  font-family: var(--font);
+  font-size: 14.5px;
+  line-height: 1.5;
+  color: var(--text);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Ледь помітна фактура фону (ТЗ 2.1) */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: var(--texture-opacity);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .5  0 0 0 0 .45  0 0 0 0 .38  0 0 0 1.4 -.2'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+body.no-scroll { overflow: hidden; }
+
+#app { position: relative; z-index: 1; }
+
+h1, h2, h3, h4 { margin: 0; font-weight: 600; line-height: 1.2; letter-spacing: -0.01em; }
+p { margin: 0; }
+
+a { color: var(--accent-text); text-decoration: none; }
+
+button, input, select, textarea { font: inherit; color: inherit; }
+button { cursor: pointer; background: none; border: 0; padding: 0; }
+button:disabled { cursor: not-allowed; }
+
+svg { display: block; }
+[hidden] { display: none !important; }
+
+:focus { outline: none; }
+:focus-visible { box-shadow: var(--focus-ring); border-radius: var(--r-sm); }
+
+::selection { background: color-mix(in srgb, var(--accent) 30%, transparent); }
+
+.icon { width: 18px; height: 18px; flex-shrink: 0; }
+.icon-sm { width: 16px; height: 16px; }
+.icon-lg { width: 24px; height: 24px; }
+
+.muted { color: var(--text-2); }
+.mono { font-family: var(--font-mono); }
+.text-hot { color: var(--hot-text); }
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+}
+
+* { scrollbar-width: thin; scrollbar-color: var(--line-strong) transparent; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; }
+}

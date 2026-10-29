@@ -1,0 +1,87 @@
+<!doctype html>
+<!-- index.html — точка входу: каркас сторінки, стилі, скрипти.
+     Оновлено: 29.10.2026 · Етап 1, крок 1 -->
+<html lang="uk" data-theme="dark" data-accent="amber" data-hot="coral">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <!-- Пошуковикам заборонено показувати сайт (ТЗ 3.6) -->
+  <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+  <meta name="googlebot" content="noindex, nofollow">
+  <meta name="referrer" content="no-referrer">
+  <meta name="color-scheme" content="dark light">
+  <title>NewGen</title>
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+  <link rel="icon" href="icons/icon-192.png" sizes="192x192" type="image/png">
+
+  <!-- Застосунок на телефоні (ТЗ 1.8) -->
+  <meta name="theme-color" content="#16130f">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="NewGen">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+
+  <!-- Вигляд застосовується ще до малювання сторінки, щоб не було «блимання» -->
+  <script>
+    (function () {
+      var root = document.documentElement;
+      var look = {};
+      try { look = JSON.parse(localStorage.getItem('ng.look') || '{}') || {}; } catch (e) { /* немає сховища */ }
+      var t = look.theme;
+      if (t === 'system') t = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+      if (t !== 'light' && t !== 'dark') t = 'dark';
+      root.setAttribute('data-theme', t);
+      if (/^[a-z]+$/.test(look.accent || '')) root.setAttribute('data-accent', look.accent);
+      if (/^[a-z]+$/.test(look.hot || '')) root.setAttribute('data-hot', look.hot);
+      // Опис застосунку (manifest) — лише з адреси сайту, не з файлу
+      if (location.protocol !== 'file:') {
+        var m = document.createElement('link');
+        m.rel = 'manifest';
+        m.href = 'manifest.json';
+        document.head.appendChild(m);
+      }
+    })();
+  </script>
+
+  <!-- Шрифти IBM Plex (ТЗ 2.1): Sans — основний, Mono — цифри й дати, Serif курсивом — цитата дня -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:ital,wght@1,400;1,500&display=swap">
+
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+</head>
+<body>
+  <div id="app"></div>
+  <noscript>
+    <p style="padding:24px;font-family:sans-serif">Для роботи CRM потрібен увімкнений JavaScript.</p>
+  </noscript>
+
+  <!-- Ядро (порядок важливий) -->
+  <script src="js/core/utils.js"></script>
+  <script src="js/core/icons.js"></script>
+  <script src="js/core/ui.js"></script>
+  <script src="js/core/dict.js"></script>
+  <script src="js/firebase-config.js"></script>
+  <script src="js/core/fb.js"></script>
+  <script src="js/core/session.js"></script>
+  <script src="js/look.js"></script>
+  <script src="js/router.js"></script>
+
+  <!-- Спільні частини -->
+  <script src="js/notify.js"></script>
+  <script src="js/search.js"></script>
+  <script src="js/pwa.js"></script>
+  <script src="js/auth-screens.js"></script>
+  <script src="js/shell.js"></script>
+
+  <!-- Розділи -->
+  <script src="js/pages/later.js"></script>
+  <script src="js/pages/settings.js"></script>
+
+  <!-- Запуск (завжди останній) -->
+  <script src="js/app.js"></script>
+</body>
+</html>
