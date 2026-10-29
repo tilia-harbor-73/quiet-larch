@@ -18,34 +18,44 @@
 'use strict';
 
 // ---- АВТОМАТИЧНИЙ БЛОК (instrumenty/make-sw.js) ----
-const VERSION = '2026.10.29-1';
-const BUILD = 'a05b04aeacce';
+const VERSION = '2026.10.30-1';
+const BUILD = 'be268ae97eb3';
 const FILES = {
   'css/base.css': '4c041eda5a3a1513',
+  'css/clients.css': '1a59a6a706690621',
   'css/components.css': '26e6ad6a553b83ff',
+  'css/forms.css': '7a179bdb52b1b0cf',
   'css/layout.css': '578a35169106bce2',
   'icons/apple-touch-icon.png': 'a0253179ca938ac3',
   'icons/icon-192.png': 'b8aeabad102b0394',
   'icons/icon-512.png': 'ea594dee9e605ffc',
   'icons/icon-maskable-512.png': '1fe217c64cfa2d7f',
   'icons/icon.svg': 'fba4f098f7cdc55b',
-  'index.html': 'e1907e7ed87f2478',
-  'js/app.js': '75eb442ed96c07d9',
+  'index.html': '02b7e377dbdec0af',
+  'js/app.js': '791dd83d07421314',
   'js/auth-screens.js': 'ff77b657ebaa4d55',
-  'js/core/dict.js': 'f16770d9a89f1185',
-  'js/core/fb.js': '17afc06bfdd3d36f',
-  'js/core/icons.js': 'bcb37c967136096b',
+  'js/clients/form.js': '10e52db2b347ceb7',
+  'js/clients/model.js': '1ff97bbca64d4788',
+  'js/clients/rollover.js': '0dffe4a2ce92c403',
+  'js/core/dict.js': '55ab031dccafc2a8',
+  'js/core/fb.js': '6f072d98d8f737af',
+  'js/core/form.js': 'e541e969b3949c28',
+  'js/core/history.js': '2bcff67a7d368228',
+  'js/core/icons.js': '1c9353127c1c9a5b',
   'js/core/session.js': '6503be98767c4f77',
+  'js/core/store.js': 'f3357ee61f297cef',
   'js/core/ui.js': 'b24c3e41432705e3',
-  'js/core/utils.js': 'd6c3e0eb602f1675',
+  'js/core/utils.js': 'f6137284b595a538',
   'js/firebase-config.js': '41548494439653a1',
   'js/look.js': 'b4add8f5c387ee07',
   'js/notify.js': '824ea5deff38a5ba',
+  'js/pages/client-card.js': '3c5d76826c8e8f98',
+  'js/pages/clients.js': '34ce8565dff985c8',
   'js/pages/later.js': '3acb31f3548e4b1f',
   'js/pages/settings.js': 'a84300dc19525533',
-  'js/pwa.js': '8742243620b7f01d',
+  'js/pwa.js': '1c43487509f0ac0d',
   'js/router.js': '40705de3cdd7b113',
-  'js/search.js': '6e187de6be84ec14',
+  'js/search.js': '42121f3ff985d9e5',
   'js/shell.js': 'dd5cae0061120899',
   'manifest.json': 'bdfb9b4064a61657'
 };

@@ -1,6 +1,6 @@
 <!doctype html>
 <!-- index.html — точка входу: каркас сторінки, стилі, скрипти.
-     Оновлено: 29.10.2026 · Етап 1, крок 1 -->
+     Оновлено: 30.10.2026 · Етап 1, крок 2 -->
 <html lang="uk" data-theme="dark" data-accent="amber" data-hot="coral">
 <head>
   <meta charset="utf-8">
@@ -52,6 +52,8 @@
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/layout.css">
   <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/forms.css">
+  <link rel="stylesheet" href="css/clients.css">
 </head>
 <body>
   <div id="app"></div>
@@ -67,8 +69,16 @@
   <script src="js/firebase-config.js"></script>
   <script src="js/core/fb.js"></script>
   <script src="js/core/session.js"></script>
+  <script src="js/core/store.js"></script>
+  <script src="js/core/history.js"></script>
+  <script src="js/core/form.js"></script>
   <script src="js/look.js"></script>
   <script src="js/router.js"></script>
+
+  <!-- Клієнти: розрахунки, перехід курсу, форма -->
+  <script src="js/clients/model.js"></script>
+  <script src="js/clients/rollover.js"></script>
+  <script src="js/clients/form.js"></script>
 
   <!-- Спільні частини -->
   <script src="js/notify.js"></script>
@@ -80,6 +90,8 @@
   <!-- Розділи -->
   <script src="js/pages/later.js"></script>
   <script src="js/pages/settings.js"></script>
+  <script src="js/pages/clients.js"></script>
+  <script src="js/pages/client-card.js"></script>
 
   <!-- Запуск (завжди останній) -->
   <script src="js/app.js"></script>

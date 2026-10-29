@@ -1,8 +1,8 @@
 /* ==========================================================================
    js/core/utils.js — дрібні помічники: дати за київським часом (ТЗ 26.4),
-   номер тижня, форматування дати для верхньої панелі, ініціали,
-   localStorage без помилок.
-   Оновлено: 29.10.2026 · Етап 1, крок 1
+   номер тижня, форматування дат, навчальний рік, ініціали, відмінки чисел,
+   нормалізація тексту для пошуку, localStorage без помилок.
+   Оновлено: 30.10.2026 · Етап 1, крок 2
    ========================================================================== */
 window.NG = window.NG || {};
 
@@ -85,8 +85,75 @@ window.NG = window.NG || {};
     }
   };
 
+  /** Дата за Києвом для моменту часу (ISO-рядок, Date або мілісекунди): 'РРРР-ММ-ДД'. */
+  function kyivDay(t) {
+    if (t == null || t === '') return '';
+    const d = t instanceof Date ? t : new Date(t);
+    if (isNaN(d)) return '';
+    const p = kyivParts(d);
+    return `${p.year}-${pad(p.month)}-${pad(p.day)}`;
+  }
+
+  /** Навчальний рік дати: з 1 вересня — цей рік, до 1 вересня — попередній ('2026-10-30' → 2026, '2027-08-25' → 2026). */
+  function academicYear(iso) {
+    const [y, m] = iso.split('-').map(Number);
+    return m >= 9 ? y : y - 1;
+  }
+
+  /** '2026-10-30' + 3 місяці → '2027-01-30' (31 число → останній день коротшого місяця). */
+  function addMonths(iso, n) {
+    const [y, m, d] = iso.split('-').map(Number);
+    const t = new Date(Date.UTC(y, m - 1 + n, 1));
+    const last = new Date(Date.UTC(t.getUTCFullYear(), t.getUTCMonth() + 1, 0)).getUTCDate();
+    return `${t.getUTCFullYear()}-${pad(t.getUTCMonth() + 1)}-${pad(Math.min(d, last))}`;
+  }
+
+  /** '2026-10-30' → '30.10.2026' */
+  function dateShort(iso) {
+    if (!iso) return '';
+    const [y, m, d] = iso.split('-');
+    return `${d}.${m}.${y}`;
+  }
+
+  /** Момент часу → '30.10.2026, 14:05' (за Києвом). */
+  function dateTimeShort(t) {
+    if (!t) return '';
+    const d = t instanceof Date ? t : new Date(t);
+    if (isNaN(d)) return '';
+    const p = kyivParts(d);
+    return `${pad(p.day)}.${pad(p.month)}.${p.year}, ${pad(p.hour)}:${pad(p.minute)}`;
+  }
+
+  /** Відмінок за числом: plural(3, ['клієнт', 'клієнти', 'клієнтів']) → 'клієнти'. */
+  function plural(n, forms) {
+    const a = Math.abs(n) % 100;
+    const b = a % 10;
+    if (a > 10 && a < 20) return forms[2];
+    if (b === 1) return forms[0];
+    if (b >= 2 && b <= 4) return forms[1];
+    return forms[2];
+  }
+
+  /** Текст для пошуку: малі літери, один вид апострофа, без зайвих пробілів. */
+  function norm(s) {
+    return String(s == null ? '' : s).toLowerCase().replace(/[’ʼ`´‘]/g, '\'').replace(/\s+/g, ' ').trim();
+  }
+
+  /** Лише цифри (для пошуку за телефоном). */
+  const digits = (s) => String(s == null ? '' : s).replace(/\D+/g, '');
+
+  /** Випадковий ідентифікатор (для записів історії змін). */
+  function uid() {
+    const a = new Uint8Array(10);
+    (window.crypto || window.msCrypto).getRandomValues(a);
+    return Array.from(a, (x) => x.toString(36).padStart(2, '0')).join('').slice(0, 16);
+  }
+
   const isMac = () => /Mac|iPhone|iPad/.test(navigator.platform || navigator.userAgent || '');
   const isFile = () => location.protocol === 'file:';
 
-  NG.utils = { TZ, pad, kyivParts, today, isoWeek, dateHeading, dateLong, weekLabel, cap, initial, ls, isMac, isFile };
+  NG.utils = {
+    TZ, pad, kyivParts, today, isoWeek, dateHeading, dateLong, weekLabel, cap, initial, ls, isMac, isFile,
+    kyivDay, academicYear, addMonths, dateShort, dateTimeShort, plural, norm, digits, uid
+  };
 })(window.NG);

@@ -3,7 +3,7 @@
    кольори «горить» (2.8), теми (2.2), Марко й Назік, розділи меню
    (1.10, порядок і групи — за макетом, рішення П1).
    Самі значення кольорів — у css/base.css (окремо для темної й світлої теми).
-   Оновлено: 29.10.2026 · Етап 1, крок 1
+   Оновлено: 30.10.2026 · Етап 1, крок 2
    ========================================================================== */
 window.NG = window.NG || {};
 
@@ -57,7 +57,7 @@ window.NG = window.NG || {};
           { id: 'home', label: 'Головна', icon: 'house', stage: 2 },
           { id: 'tasks', label: 'Задачі', icon: 'tasks', stage: 2 },
           { id: 'orders', label: 'Замовлення', icon: 'orders', stage: 1, step: 3 },
-          { id: 'clients', label: 'Клієнти', icon: 'users', stage: 1, step: 2 },
+          { id: 'clients', label: 'Клієнти', icon: 'users', stage: 1, step: 2, ready: true },
           { id: 'calendar', label: 'Календар', icon: 'calendar', stage: 2 }
         ]
       },

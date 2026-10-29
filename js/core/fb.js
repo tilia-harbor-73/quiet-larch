@@ -3,8 +3,10 @@
    (Authentication) і спільна база (Firestore) з локальним кешем.
 
    Кеш: Firestore зберігає копію даних на пристрої й дочитує лише зміни —
-   так база не перечитується при кожному відкритті (ТЗ 26.9).
-   Оновлено: 29.10.2026 · Етап 1, крок 1
+   так база не перечитується при кожному відкритті (ТЗ 26.9). Розмір кешу
+   не обмежений, щоб браузер не викидав із нього записи (js/core/store.js
+   бере звідти все, що вже бачив, і дочитує з бази лише змінене).
+   Оновлено: 30.10.2026 · Етап 1, крок 2
    ========================================================================== */
 window.NG = window.NG || {};
 
@@ -61,6 +63,9 @@ window.NG = window.NG || {};
       try { firebase.firestore.setLogLevel('error'); } catch (e) { /* не критично */ }
       const auth = firebase.auth();
       const db = firebase.firestore();
+      try {
+        db.settings({ cacheSizeBytes: firebase.firestore.CACHE_SIZE_UNLIMITED, merge: true });
+      } catch (e) { console.warn('Firestore: розмір кешу не змінено', e && e.code); }
       // Локальний кеш на пристрої (спільний для кількох вкладок)
       try {
         await db.enablePersistence({ synchronizeTabs: true });
@@ -77,8 +82,14 @@ window.NG = window.NG || {};
   /** Час сервера для полів «змінено» (updatedAt). */
   function serverTime() { return api.firebase.firestore.FieldValue.serverTimestamp(); }
 
+  /** Додати елементи до масиву в документі, не перезаписуючи чужі (історія змін). */
+  function arrayUnion(...items) { return api.firebase.firestore.FieldValue.arrayUnion(...items); }
+
+  /** Мітка часу Firestore з мілісекунд (для запитів «змінено після…»). */
+  function timestamp(ms) { return api.firebase.firestore.Timestamp.fromMillis(ms); }
+
   NG.fb = {
-    configured, ready, loadSdk, serverTime,
+    configured, ready, loadSdk, serverTime, arrayUnion, timestamp,
     get api() { return api; },
     get projectId() { return config().projectId; }
   };
