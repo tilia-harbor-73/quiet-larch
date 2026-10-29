@@ -19,16 +19,16 @@
 
 // ---- АВТОМАТИЧНИЙ БЛОК (instrumenty/make-sw.js) ----
 const VERSION = '2026.10.29-1';
-const BUILD = 'c40b2f0d235d';
+const BUILD = 'a05b04aeacce';
 const FILES = {
   'css/base.css': '4c041eda5a3a1513',
   'css/components.css': '26e6ad6a553b83ff',
   'css/layout.css': '578a35169106bce2',
-  'icons/apple-touch-icon.png': 'cbe2e921300461ec',
-  'icons/icon-192.png': 'e230488bd500d0ec',
-  'icons/icon-512.png': 'd35828062268cabf',
-  'icons/icon-maskable-512.png': '79e96aa6ba4c6dfc',
-  'icons/icon.svg': 'e72a20d6afb1e6b9',
+  'icons/apple-touch-icon.png': 'a0253179ca938ac3',
+  'icons/icon-192.png': 'b8aeabad102b0394',
+  'icons/icon-512.png': 'ea594dee9e605ffc',
+  'icons/icon-maskable-512.png': '1fe217c64cfa2d7f',
+  'icons/icon.svg': 'fba4f098f7cdc55b',
   'index.html': 'e1907e7ed87f2478',
   'js/app.js': '75eb442ed96c07d9',
   'js/auth-screens.js': 'ff77b657ebaa4d55',
